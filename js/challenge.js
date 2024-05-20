@@ -45,7 +45,7 @@ const createLikeMessage = () => {
   likeCounter = 1
   currentCounter = counter
   const li = document.createElement("li")
-  li.textContent = `${counter} has been liked ${likeCounter} times`
+  li.textContent = `${counter} has been liked ${likeCounter} time`
   likeSection.appendChild(li)
 }
 
