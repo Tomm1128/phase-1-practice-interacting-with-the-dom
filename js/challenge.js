@@ -49,9 +49,10 @@ const handleResumePause = () => {
 const handleLike = () => {
   const likeSection = document.querySelector("ul.likes") 
   if (currentCounter === counter) {
-    const nodeCount = likeSection.childElementCount 
+    const countOfLikeMessages = likeSection.childElementCount 
     likeCounter++
-    likeSection.childNodes[nodeCount - 1].textContent = `${currentCounter} has been liked ${likeCounter} times`
+    const currentLikeMessage = likeSection.childNodes[countOfLikeMessages - 1]
+    currentLikeMessage.textContent = `${currentCounter} has been liked ${likeCounter} times`
   } else {
     likeCounter = 1
     currentCounter = counter
