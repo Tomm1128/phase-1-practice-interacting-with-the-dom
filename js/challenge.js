@@ -4,6 +4,7 @@ const plusBtn = document.getElementById("plus")
 const minusBtn = document.getElementById("minus")
 const likeBtn = document.getElementById("heart")
 const formBtn = document.getElementById("submit")
+const likeSection = document.querySelector("ul.likes") 
 let counter = 0
 let likeCounter = 0
 let counterInterval
@@ -40,21 +41,22 @@ const resumeApp = () => {
 
 const handleResumePause = () => pauseBtn.textContent === "resume" ? resumeApp() : pauseApp()
 
-const handleLike = () => {
-  const likeSection = document.querySelector("ul.likes") 
-  if (currentCounter === counter) {
-    const countOfLikeMessages = likeSection.childElementCount 
-    likeCounter++
-    const currentLikeMessage = likeSection.childNodes[countOfLikeMessages - 1]
-    currentLikeMessage.textContent = `${currentCounter} has been liked ${likeCounter} times`
-  } else {
-    likeCounter = 1
-    currentCounter = counter
-    const li = document.createElement("li")
-    li.textContent = `${counter} has been liked ${likeCounter} times`
-    likeSection.appendChild(li)
-  }
+const createLikeMessage = () => {
+  likeCounter = 1
+  currentCounter = counter
+  const li = document.createElement("li")
+  li.textContent = `${counter} has been liked ${likeCounter} times`
+  likeSection.appendChild(li)
 }
+
+const updateLikeMessage = () => {
+  const countOfLikeMessages = likeSection.childElementCount 
+  likeCounter++
+  const currentLikeMessage = likeSection.childNodes[countOfLikeMessages - 1]
+  currentLikeMessage.textContent = `${currentCounter} has been liked ${likeCounter} times`
+}
+
+const handleLike = () =>  currentCounter === counter ? updateLikeMessage() : createLikeMessage()
 
 const getFormInput = () => {
   const formInput = document.getElementById("comment-input") 
@@ -69,7 +71,6 @@ const handleUserInput = (event) => {
   p.textContent = `${userInput}\n`
   commentSection.appendChild(p)
 }
-
 
 const init = () => {
   counterInterval = setInterval(incrementCounter, 1000)
