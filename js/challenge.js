@@ -1,5 +1,8 @@
 const counterDisplay = document.getElementById("counter")
 const pauseBtn = document.getElementById("pause")
+const plusBtn = document.getElementById("plus")
+const minusBtn = document.getElementById("minus")
+const likeBtn = document.getElementById("heart")
 let counter = 0
 let likeCounter = 0
 let counterInterval
@@ -20,10 +23,16 @@ const stopCounter = () => {
   if (pauseBtn.textContent === "resume"){
     counterInterval = setInterval(incrementCounter, 1000)
     pauseBtn.textContent = "pause"
+    plusBtn.disabled = false
+    minusBtn.disabled = false
+    likeBtn.disabled = false
   } else {
     clearInterval(counterInterval)
     counterInterval = null
     pauseBtn.textContent = "resume"
+    plusBtn.disabled = true
+    minusBtn.disabled = true
+    likeBtn.disabled = true
   }
 }
 
@@ -45,20 +54,12 @@ const likeMethod = () => {
 
 const init = () => {
 
-  const plusBtn = document.getElementById("plus")
-  const minusBtn = document.getElementById("minus")
-  const likeBtn = document.getElementById("heart")
-
-  
   counterInterval = setInterval(incrementCounter, 1000)
 
   plusBtn.addEventListener("click", incrementCounter) 
   minusBtn.addEventListener("click", decreaseCounter)
   likeBtn.addEventListener("click", likeMethod)
   pauseBtn.addEventListener("click", stopCounter)
-
-
-
 
 }
 
