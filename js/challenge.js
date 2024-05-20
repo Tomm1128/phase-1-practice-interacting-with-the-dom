@@ -8,7 +8,6 @@ let likeCounter = 0
 let counterInterval
 let currentCounter
 
-
 const incrementCounter = () => {
   counter++
   counterDisplay.innerHTML = `\n    ${counter}\n  `
@@ -20,12 +19,14 @@ const decreaseCounter = () => {
 }
 
 const stopCounter = () => {
+  const formBtn = document.getElementById("submit")
   if (pauseBtn.textContent === "resume"){
     counterInterval = setInterval(incrementCounter, 1000)
     pauseBtn.textContent = "pause"
     plusBtn.disabled = false
     minusBtn.disabled = false
     likeBtn.disabled = false
+    formBtn.disabled = false
   } else {
     clearInterval(counterInterval)
     counterInterval = null
@@ -33,6 +34,7 @@ const stopCounter = () => {
     plusBtn.disabled = true
     minusBtn.disabled = true
     likeBtn.disabled = true
+    formBtn.disabled = true
   }
 }
 
@@ -51,9 +53,22 @@ const likeMethod = () => {
   }
 }
 
+const getFormInput = () => {
+  const formInput = document.getElementById("comment-input") 
+  return formInput.value
+}
+
+const handleUserInput = (event) => {
+  event.preventDefault()
+  const userInput = getFormInput()
+  const commentSection = document.getElementById("list")
+  const p = document.createElement("p")
+  p.textContent = `${userInput}\n`
+  commentSection.appendChild(p)
+}
+
 
 const init = () => {
-
   counterInterval = setInterval(incrementCounter, 1000)
 
   plusBtn.addEventListener("click", incrementCounter) 
@@ -61,7 +76,9 @@ const init = () => {
   likeBtn.addEventListener("click", likeMethod)
   pauseBtn.addEventListener("click", stopCounter)
 
-}
+  const form = document.getElementById("comment-form")
 
+  form.addEventListener("submit", handleUserInput)
+}
 
 document.addEventListener("DOMContentLoaded", init())
