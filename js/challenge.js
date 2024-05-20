@@ -38,13 +38,7 @@ const resumeApp = () => {
   formBtn.disabled = false
 }
 
-const handleResumePause = () => {
-  if (pauseBtn.textContent === "resume"){
-    resumeApp()
-  } else {
-    pauseApp()
-  }
-}
+const handleResumePause = () => pauseBtn.textContent === "resume" ? resumeApp() : pauseApp()
 
 const handleLike = () => {
   const likeSection = document.querySelector("ul.likes") 
